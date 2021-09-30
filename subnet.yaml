@@ -1,0 +1,32 @@
+---
+  Resources:
+    VPCAula: 
+      Type: AWS::EC2::VPC
+      Properties:
+        CidrBlock: 10.0.0.0/16
+        EnableDnsSupport: 'true'
+        EnableDnsHostnames: 'true'
+
+    PublicSubnetA: 
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId: !Ref VPCAula
+        CidrBlock: 10.0.1.0/24
+
+    PublicSubnetB: 
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId: !Ref VPCAula
+        CidrBlock: 10.0.2.0/24
+      
+    PublicSubnetC: 
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId: !Ref VPCAula
+        CidrBlock: 10.0.3.0/24
+      
+    PublicSubnetD: 
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId: !Ref VPCAula
+        CidrBlock: 10.0.4.0/24      

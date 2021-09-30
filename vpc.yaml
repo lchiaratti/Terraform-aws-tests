@@ -1,0 +1,8 @@
+---
+  Resources:
+    VPCAula: 
+      Type: AWS::EC2::VPC
+      Properties:
+        CidrBlock: 172.168.0.1/24
+        EnableDnsSupport: 'true'
+        EnableDnsHostnames: 'true'

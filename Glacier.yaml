@@ -1,0 +1,17 @@
+---
+  Resources:
+    Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        AccessControl: Private
+        BucketName: aulacloud-bucket
+        LifecycleConfiguration:
+          Rules:
+            - Id: GlacierRule
+              Prefix: relatorio
+              Status: Enabled
+              ExpirationInDays: 365
+              Transitions:
+                - TransitionInDays: 1
+                  StorageClass: GLACIER
+    

@@ -1,0 +1,19 @@
+---
+  Resources:
+    VPCAula: 
+      Type: AWS::EC2::VPC
+      Properties:
+        CidrBlock: 10.0.0.0/16
+        EnableDnsSupport: 'true'
+        EnableDnsHostnames: 'true'
+        
+    SGAula:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: Libera a porta 22
+        SecurityGroupIngress:
+          - IpProtocol: tcp
+            FromPort: '22'
+            ToPort: '22'
+            CidrIp: 0.0.0.0/0
+        VpcId: !Ref VPCAula

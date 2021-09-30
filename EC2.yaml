@@ -1,0 +1,73 @@
+---
+  Resources:
+    VPCAula: 
+      Type: AWS::EC2::VPC
+      Properties:
+        CidrBlock: 10.0.0.0/16
+        EnableDnsSupport: 'true'
+        EnableDnsHostnames: 'true'
+
+    PublicSubnetA: 
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId: !Ref VPCAula
+        CidrBlock: 10.0.1.0/24
+
+    PublicSubnetB: 
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId: !Ref VPCAula
+        CidrBlock: 10.0.2.0/24
+      
+    PublicSubnetC: 
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId: !Ref VPCAula
+        CidrBlock: 10.0.3.0/24
+      
+    PublicSubnetD: 
+      Type: AWS::EC2::Subnet
+      Properties:
+        VpcId: !Ref VPCAula
+        CidrBlock: 10.0.4.0/24
+
+    IGW:
+      Type: AWS::EC2::InternetGateway
+    
+    AttachIGW:
+      Type: AWS::EC2::VPCGatewayAttachment
+      Properties:
+        VpcId: !Ref VPCAula
+        InternetGatewayId: !Ref IGW
+    
+    RT:
+      Type: AWS::EC2::RouteTable
+      Properties:
+        VpcId: !Ref VPCAula
+    
+    RTtoIGW:
+      Type: AWS::EC2::Route
+      DependsOn: IGW
+      Properties:
+        DestinationCidrBlock: 0.0.0.0/0
+        GatewayId: !Ref IGW
+        RouteTableId: !Ref RT
+    
+    RTAssoc:
+      Type: AWS::EC2::SubnetRouteTableAssociation
+      Properties:
+        RouteTableId: !Ref RT
+        SubnetId: !Ref PublicSubnetA
+    
+    Instance:
+      Type: AWS::EC2::Instance
+      Properties:
+        ImageId: ami-0443305dabd4be2bc
+        InstanceType: t2.micro
+        SubnetId: !Ref PublicSubnetA
+
+        
+        
+
+
+
